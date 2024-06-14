@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1718337403 source:c:\users\lucer\onedrive\documentos\heladeria\heladeria-en-c\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"lib.h"
+
+1718338978 c:\users\lucer\onedrive\documentos\heladeria\heladeria-en-c\lib.h
+
+1718338289 source:c:\users\lucer\onedrive\documentos\heladeria\heladeria-en-c\lib.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"lib.h"
+

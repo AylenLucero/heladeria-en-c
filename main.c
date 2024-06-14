@@ -1,8 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "lib.h"
 
 int main()
 {
-    printf("Hello world!\n");
+    DatosCuentaAdmin datos;
+    crearArchivoBinario("cuentaAdmin.bin");
+    menuPrincipal(&datos);
+
     return 0;
 }
