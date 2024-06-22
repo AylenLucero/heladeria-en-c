@@ -1,23 +1,22 @@
 #ifndef LIB_H_INCLUDED
 #define LIB_H_INCLUDED
 
-typedef struct { //Estructura datos de cuenta de administradores
+typedef struct DatosCuentaAdmin { //Estructura datos de cuenta de administradores
     int dni;
     char contrasena[20];
-} DatosCuentaAdmin;
+} TDatosCuentaAdmin;
 
-typedef struct { //Estructura datos de cuenta de cajeros
+typedef struct DatosCuentaCajeros { //Estructura datos de cuenta de cajeros
     int codUnico;
     char contrasena[20];
-} DatosCuentaCajeros;
+} TDatosCuentaCajeros;
 
-void menuPrincipal(DatosCuentaAdmin *datos);
+void menuPrincipal(TDatosCuentaAdmin *datos);
 void crearArchivoBinario(char *nombreArchivoBinario);
 int archivoEstaVacio(char *nombreArchivo);
-void ingresarDatosCuentaAdmin(DatosCuentaAdmin *datos);
-void guardarDatos(const char *nombreArchivoBinario, DatosCuentaAdmin *datos);
-void leerArchivoBinario(char *nombreArchivoBinario, DatosCuentaAdmin *datos, char *puesto);
-void menuAdmin(DatosCuentaAdmin *datos);
+
+void leerArchivoBinarioInicioSesion(char *nombreArchivoBinario, char *puesto);
+void menuAdmin(TDatosCuentaAdmin *datos);
 
 
 #endif // LIB_H_INCLUDED
