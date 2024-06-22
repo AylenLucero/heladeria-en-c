@@ -17,13 +17,19 @@ void menuPrincipal(TDatosCuentaAdmin *datos)
         {
         case 1:
             break;
-        case 2:
+        case 2:/*
             if (archivoEstaVacio(ValoresCuentasAdmin) == 1)
             {
                 ingresarYGuardarDatosCuentaAdmin(ValoresCuentasAdmin);
             } else {
                 leerArchivoBinarioInicioSesion(ValoresCuentasAdmin, "ADMINISTRADOR");
+            }*/
+            if (archivoEstaVacio("cuentaAdmin.bin"))
+            {
+                ingresarDatosCuentaAdmin(&datos);
+                guardarDatos("cuentaAdmin.bin", &datos);
             }
+            leerArchivoBinario("cuentaAdmin.bin", &datos, "ADMINISTRADOR");
             break;
         default:
             break;
@@ -176,4 +182,62 @@ int existeEnArchivo(char *nombreArchivoBinario, int dniBuscar) {
 
     fclose(archivo);
     return 0; // DNI no encontrado
+}
+
+void ingresarDatosCuentaAdmin(TDatosCuentaAdmin *datos)
+{
+    printf("Bienvenido! Administrador, cree su cuenta\n");
+    printf("Ingrese su DNI: ");
+    fflush(stdin);
+    scanf("%d",&datos->dni);
+    printf("\n");
+    printf("Ingrese su nueva constrasena: ");
+    scanf("%s",&datos->contrasena);
+    printf("%s",datos->contrasena);
+}
+
+void guardarDatos(const char *nombreArchivoBinario, TDatosCuentaAdmin *datos)
+{
+    FILE *archivo = fopen(nombreArchivoBinario, "ab");
+    if (archivo == NULL)
+    {
+        perror("No se pudo abrir el archivo para escritura");
+        exit(EXIT_FAILURE);
+    }
+
+    fwrite(datos, sizeof(TDatosCuentaAdmin), 1, archivo);
+    fclose(archivo);
+    printf("Datos guardados exitosamente en '%s'.\n", nombreArchivoBinario);
+}
+
+void leerArchivoBinario(char *nombreArchivoBinario, TDatosCuentaAdmin *datos, char *puesto)
+{
+    system("cls");
+    FILE *archivo = fopen(nombreArchivoBinario, "rb");
+    int dato;
+    if(archivo != NULL)
+    {
+        int dniBuscar;
+        char contrasena[20];
+        printf("INICIAR SESION\nPara ingresar a su cuenta de %s, debe:\n", puesto);
+        printf("Ingresar DNI: ");
+        fflush(stdin);
+        scanf("%d",&dniBuscar);
+        printf("Ingresar contrasena: ");
+        fflush(stdin);
+        scanf("%s",&contrasena);
+        while (fread(datos, sizeof(TDatosCuentaAdmin), 1, archivo))
+        {
+            if ((datos->dni == dniBuscar) && (strcmp(contrasena,datos->contrasena)==0))
+            {
+                menuAdmin(datos);
+                break;
+            }
+        }
+        fclose(archivo);
+    }
+    else
+    {
+        printf("No se pudo abrir el archivo\n");
+    }
 }
